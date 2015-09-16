@@ -1,0 +1,53 @@
+{
+  "data": {
+    "factions": [
+      {
+        "id": "RmFjdGlvbjox",
+        "name": "Alliance to Restore the Republic",
+        "_ships9qoamj": {
+          "edges": [
+            {
+              "node": {
+                "id": "U2hpcDox",
+                "name": "X-Wing"
+              },
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA="
+            },
+            {
+              "node": {
+                "id": "U2hpcDoy",
+                "name": "Y-Wing"
+              },
+              "cursor": "YXJyYXljb25uZWN0aW9uOjE="
+            },
+            {
+              "node": {
+                "id": "U2hpcDoz",
+                "name": "A-Wing"
+              },
+              "cursor": "YXJyYXljb25uZWN0aW9uOjI="
+            },
+            {
+              "node": {
+                "id": "U2hpcDo0",
+                "name": "Millenium Falcon"
+              },
+              "cursor": "YXJyYXljb25uZWN0aW9uOjM="
+            },
+            {
+              "node": {
+                "id": "U2hpcDo1",
+                "name": "Home One"
+              },
+              "cursor": "YXJyYXljb25uZWN0aW9uOjQ="
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": false,
+            "hasPreviousPage": false
+          }
+        }
+      }
+    ]
+  }
+}
