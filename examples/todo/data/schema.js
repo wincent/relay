@@ -58,7 +58,7 @@ var {nodeInterface, nodeField} = nodeDefinitions(
 
 var GraphQLTodo = new GraphQLObjectType({
   name: 'Todo',
-  fields: {
+  fields: () => ({
     id: globalIdField('Todo'),
     text: {
       type: GraphQLString,
@@ -67,8 +67,12 @@ var GraphQLTodo = new GraphQLObjectType({
     complete: {
       type: GraphQLBoolean,
       resolve: (obj) => obj.complete,
-    }
-  },
+    },
+    creator: {
+      type: GraphQLUser,
+      resolve: (obj) => getUser(obj.creatorID),
+    },
+  }),
   interfaces: [nodeInterface]
 });
 
@@ -98,6 +102,18 @@ var GraphQLUser = new GraphQLObjectType({
       type: TodosConnection,
       args: connectionArgs,
       resolve: (obj, args) => connectionFromArray(getTodos(), args),
+    },
+    name: {
+      type: GraphQLString,
+      resolve: (obj) => obj.name,
+    },
+    profilePic: {
+      type: GraphQLString,
+      resolve: (obj) => `http://placehold.it/32x32&text=${obj.id}`,
+    },
+    hometown: {
+      type: GraphQLString,
+      resolve: (obj) => obj.hometown,
     }
   },
   interfaces: [nodeInterface]

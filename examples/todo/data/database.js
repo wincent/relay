@@ -1,28 +1,61 @@
 export class Todo extends Object {}
-export class User extends Object {}
+export class User {
+  constructor(id, name, hometown) {
+    this.id = id;
+    this.name = name;
+    this.hometown = hometown;
+  }
+}
 
 // Mock authenticated ID
 const VIEWER_ID = 'me';
 
 // Mock user data
-var viewer = new User();
-viewer.id = VIEWER_ID;
 var usersById = {
-  [VIEWER_ID]: viewer
+  [VIEWER_ID]: new User('me', 'You', 'San Francisco'),
+  4: new User('4', 'Mark', 'Menlo Park'),
+  660361306: new User('660361306', 'Greg', 'Adelaide'),
 };
 
 // Mock todo data
 var todosById  = {};
 var todoIdsByUser = {
-  [VIEWER_ID]: []
+  [VIEWER_ID]: [],
 };
 var nextTodoId = 0;
-addTodo('Taste JavaScript', true);
-addTodo('Buy a unicorn', false);
 
-export function addTodo(text, complete) {
+// Based on http://stackoverflow.com/a/20871714/2103996
+function permute(inputArr) {
+  var results = [];
+  function permutator(arr, memo) {
+    var cur, memo = memo || [];
+    for (var i = 0; i < arr.length; i++) {
+      cur = arr.splice(i, 1);
+      if (arr.length === 0) {
+        results.push(memo.concat(cur));
+      }
+      permutator(arr.slice(), memo.concat(cur));
+      arr.splice(i, 0, cur[0]);
+    }
+    return results;
+  }
+  return permutator(inputArr);
+}
+
+const words = ['foo', 'bar', 'baz', 'fizz', 'buzz'];
+const userIDs = Object.keys(usersById);
+permute(words).forEach((todoWords, i) => {
+  addTodo(
+    todoWords.join(' '),
+    i % 2,
+    usersById[userIDs[i % userIDs.length]].id
+  );
+});
+
+export function addTodo(text, complete, creatorID = VIEWER_ID) {
   var todo = new Todo();
   todo.complete = !!complete;
+  todo.creatorID = creatorID;
   todo.id = `${nextTodoId++}`;
   todo.text = text;
   todosById[todo.id] = todo;

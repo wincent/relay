@@ -10,13 +10,14 @@ class TodoApp extends React.Component {
     );
   }
   render() {
-    var hasTodos = this.props.viewer.todos.totalCount > 0;
+    var {viewer} = this.props;
+    var hasTodos = viewer.todos.totalCount > 0;
     return (
       <div>
         <section className="todoapp">
           <header className="header">
             <h1>
-              todos
+              {viewer.name}{"'"}s todos
             </h1>
             <TodoTextInput
               autoFocus={true}
@@ -40,6 +41,9 @@ class TodoApp extends React.Component {
         </section>
         <footer className="info">
           <p>
+            Your hometown is {viewer.hometown}
+          </p>
+          <p>
             Double-click to edit a todo
           </p>
           <p>
@@ -60,6 +64,8 @@ export default Relay.createContainer(TodoApp, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on User {
+        hometown,
+        name,
         todos(first: 9007199254740991) {
           edges {
             node {

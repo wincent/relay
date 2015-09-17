@@ -73,7 +73,16 @@ class Todo extends React.Component {
             type="checkbox"
           />
           <label onDoubleClick={this._handleLabelDoubleClick}>
+            [{this.props.todo.creator.name}]:{' '}
             {this.props.todo.text}
+            <img
+              src={this.props.todo.creator.profilePic}
+              style={{
+                position: 'absolute',
+                opacity: .25,
+                right: '10px',
+              }}
+            />
           </label>
           <button
             className="destroy"
@@ -91,6 +100,10 @@ export default Relay.createContainer(Todo, {
     todo: () => Relay.QL`
       fragment on Todo {
         complete,
+        creator {
+          name,
+          profilePic,
+        },
         id,
         text,
         ${ChangeTodoStatusMutation.getFragment('todo')},
