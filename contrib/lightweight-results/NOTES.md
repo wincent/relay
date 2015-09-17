@@ -23,6 +23,8 @@ JSON for delivery over the wire.
   using simple property access (eg. `this.props.viewer.notifications.count`,
   which would transpile to `this.props.viewer().notifications().count()` or any
   of a number of other possible variants).
+- Indicate the presence of subfields using bit arrays rather than textual field
+  names.
 
 [FlatBuffers]: https://google.github.io/flatbuffers/
 [JSON Graph]: https://netflix.github.io/falcor/documentation/jsongraph.html
