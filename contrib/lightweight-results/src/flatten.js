@@ -72,7 +72,7 @@ function pack(data, result, nodes) {
       if (id != null) {
         // Node object. Store it in normalized form.
         if (!nodes[id]) {
-          nodes[id] = {}
+          nodes[id] = {};
         }
         if (!result[key]) {
           result[key] = {id};

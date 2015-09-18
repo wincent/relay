@@ -79,7 +79,7 @@ let tests = [
   },
 ];
 
-function pretty(object) {
+function pretty(object) { // eslint-disable-line no-unused-vars
   console.log(JSON.stringify(object, null, 2));
 }
 

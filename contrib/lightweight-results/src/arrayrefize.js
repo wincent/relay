@@ -34,7 +34,7 @@ function pack(data, result, nodes, indexMap) {
           indexMap[id] :
           (indexMap[id] = nodes.length);
         if (!nodes[index]) {
-          nodes[index] = {}
+          nodes[index] = {};
         }
         if (!result[key]) {
           result[key] = {id: index};
