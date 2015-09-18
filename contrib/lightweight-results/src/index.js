@@ -11,6 +11,7 @@ import leonize from './leonize';
 import messagepackize from './messagepackize';
 import now from 'performance-now';
 import passthrough from './passthrough';
+import thin from './thin';
 
 const fixture = require('../fixtures/result');
 
@@ -56,7 +57,18 @@ let tests = [
       flatpacked,
     ];
   },
+  () => {
+    const thinned = JSON.stringify(thin(fixture));
+    return [
+      'thin',
+      thinned,
+    ];
+  },
 ];
+
+function pretty(object) {
+  console.log(JSON.stringify(object, null, 2));
+}
 
 tests = tests.reduce((tests, test) => {
   tests.push(test);
