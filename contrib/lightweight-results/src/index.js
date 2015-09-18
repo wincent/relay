@@ -24,66 +24,57 @@ const table = new Table({
 
 let tests = [
   () => {
-    const passed = JSON.stringify(passthrough(fixture));
     return [
       'passthrough',
-      passed,
+      JSON.stringify(passthrough(fixture)),
     ];
   },
   () => {
-    const messagepackized = messagepackize(fixture);
     return [
       'messagepackize',
-      messagepackized,
+      messagepackize(fixture),
     ];
   },
   () => {
-    const leonized = leonize(fixture);
     return [
       'leonize',
-      leonized,
+      leonize(fixture),
     ];
   },
   () => {
-    const flattened = JSON.stringify(flatten(fixture));
     return [
       'flatten',
-      flattened,
+      JSON.stringify(flatten(fixture)),
     ];
   },
   () => {
-    const flatpacked = messagepackize(flatten(fixture));
     return [
       'flatten + messagepackize',
-      flatpacked,
+      messagepackize(flatten(fixture)),
     ];
   },
   () => {
-    const thinned = JSON.stringify(thin(fixture));
     return [
       'thin',
-      thinned,
+      JSON.stringify(thin(fixture)),
     ];
   },
   () => {
-    const thinpacked = messagepackize(thin(fixture));
     return [
       'thin + messagepackize',
-      thinpacked,
+      messagepackize(thin(fixture)),
     ];
   },
   () => {
-    const refized = JSON.stringify(arrayrefize(fixture));
     return [
       'arrayrefize',
-      refized,
+      JSON.stringify(arrayrefize(fixture)),
     ];
   },
   () => {
-    const refizedAndPacked = messagepackize(arrayrefize(fixture));
     return [
       'arrayrefize + messagepackize',
-      refizedAndPacked,
+      messagepackize(arrayrefize(fixture)),
     ];
   },
 ];
