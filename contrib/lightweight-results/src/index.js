@@ -6,11 +6,11 @@ import 'babel-core/polyfill';
 
 import Table from 'cli-table';
 import flatten from './flatten';
+import gzip from 'gzip-js';
 import leonize from './leonize';
 import messagepackize from './messagepackize';
-import passthrough from './passthrough';
-import gzip from 'gzip-js';
 import now from 'performance-now';
+import passthrough from './passthrough';
 
 const fixture = require('../fixtures/result');
 
