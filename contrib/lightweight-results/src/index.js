@@ -15,12 +15,7 @@ import passthrough from './passthrough';
 import thin from './thin';
 
 const fixture = require('../fixtures/result');
-
 const baseSize = JSON.stringify(fixture).length;
-
-const table = new Table({
-  head: ['op', 'size', '%', 'time'],
-});
 
 let tests = [
   () => {
@@ -100,6 +95,10 @@ tests = tests.reduce((tests, test) => {
 function print(str) {
   process.stdout.write(str);
 }
+
+const table = new Table({
+  head: ['op', 'size', '%', 'time'],
+});
 
 tests.forEach(test => {
   const [op, result] = test();
