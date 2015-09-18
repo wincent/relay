@@ -1,7 +1,7 @@
 {
-  "name": "minimal-npm-boilerplate",
+  "name": "relay-lightweight",
   "version": "0.0.1",
-  "description": "Minimal boilerplate for creating an NPM package",
+  "description": "Experiments in reducing the size of Relay/GraphQL result payloads",
   "main": "dist/index.js",
   "bin": {
     "bench": "dist/index.js"
@@ -13,13 +13,14 @@
     "test": "mocha --opts mocha/mocha.opts 'src/**/__mocks__/*.js' 'src/**/__tests__/*-test.js'",
     "watch": "gulp"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/wincent/minimal-npm-boilerplate.git"
   },
   "author": {
     "name": "Greg Hurrell",
-    "email": "greg@hurrell.net",
+    "email": "glh@fb.com",
     "url": "https://github.com/wincent"
   },
   "license": "MIT",
