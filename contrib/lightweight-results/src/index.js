@@ -78,6 +78,7 @@ function pretty(object) { // eslint-disable-line no-unused-vars
   console.log(JSON.stringify(object, null, 2));
 }
 
+// Add three copies of each test, applying three levels of gzip compression.
 tests = tests.reduce((tests, test) => {
   tests.push(test);
   [1, 6, 9].forEach(level => {
