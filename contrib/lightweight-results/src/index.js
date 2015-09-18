@@ -64,6 +64,13 @@ let tests = [
       thinned,
     ];
   },
+  () => {
+    const thinpacked = messagepackize(thin(fixture));
+    return [
+      'thin + messagepackize',
+      thinpacked,
+    ];
+  },
 ];
 
 function pretty(object) {
