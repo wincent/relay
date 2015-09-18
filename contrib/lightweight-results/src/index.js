@@ -5,6 +5,7 @@
 import 'babel-core/polyfill';
 
 import Table from 'cli-table';
+import leonize from './leonize';
 import messagepackize from './messagepackize';
 import passthrough from './passthrough';
 import gzip from 'gzip-js';
@@ -31,6 +32,13 @@ let tests = [
     return [
       'messagepackize',
       messagepackized,
+    ];
+  },
+  () => {
+    const leonized = leonize(fixture);
+    return [
+      'leonize',
+      leonized,
     ];
   },
 ];
