@@ -5,6 +5,7 @@
 import 'babel-core/polyfill';
 
 import Table from 'cli-table';
+import flatten from './flatten';
 import leonize from './leonize';
 import messagepackize from './messagepackize';
 import passthrough from './passthrough';
@@ -16,7 +17,7 @@ const fixture = require('../fixtures/result');
 const baseSize = JSON.stringify(fixture).length;
 
 const table = new Table({
-  head: ['op', 'size', '%', 'time/100 ops'],
+  head: ['op', 'size', '%', 'time'],
 });
 
 let tests = [
@@ -39,6 +40,20 @@ let tests = [
     return [
       'leonize',
       leonized,
+    ];
+  },
+  () => {
+    const flattened = JSON.stringify(flatten(fixture));
+    return [
+      'flatten',
+      flattened,
+    ];
+  },
+  () => {
+    const flatpacked = messagepackize(flatten(fixture));
+    return [
+      'flatten + messagepackize',
+      flatpacked,
     ];
   },
 ];
