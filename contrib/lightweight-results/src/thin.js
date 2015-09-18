@@ -7,7 +7,7 @@ import 'babel-core/polyfill';
  * some additional corners cut to reduce size (for example, normalized records
  * don't redundantly encode their own IDs).
  */
-export default function flatten(results) {
+export default function thin(results) {
   const store = {
     __nodes__: {},
     data: {},
