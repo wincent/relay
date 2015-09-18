@@ -26,6 +26,13 @@ JSON for delivery over the wire.
 - Indicate the presence of subfields using bit arrays rather than textual field
   names.
 
+## On the use of gzip
+
+I've got tests in here that measure the effect of gzipping the payload. This is
+to give us a sense of relative size, and some notion of time cost, but bear in
+mind that all data coming from the server gets gzipped anyway transparently, so
+it's not something that we'd have to explicitly do.
+
 [FlatBuffers]: https://google.github.io/flatbuffers/
 [JSON Graph]: https://netflix.github.io/falcor/documentation/jsongraph.html
 [MessagePack]: http://msgpack.org/index.html

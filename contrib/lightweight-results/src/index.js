@@ -6,6 +6,8 @@ import 'babel-core/polyfill';
 
 import Table from 'cli-table';
 import arrayrefize from './arrayrefize';
+import deleonize from './deleonize';
+import demessagepackize from './demessagepackize';
 import flatten from './flatten';
 import gzip from 'gzip-js';
 import leonize from './leonize';
@@ -18,60 +20,51 @@ const fixture = require('../fixtures/result');
 const baseSize = JSON.stringify(fixture).length;
 
 let tests = [
-  () => {
-    return [
-      'passthrough',
-      JSON.stringify(passthrough(fixture)),
-    ];
-  },
-  () => {
-    return [
-      'messagepackize',
-      messagepackize(fixture),
-    ];
-  },
-  () => {
-    return [
-      'leonize',
-      leonize(fixture),
-    ];
-  },
-  () => {
-    return [
-      'flatten',
-      JSON.stringify(flatten(fixture)),
-    ];
-  },
-  () => {
-    return [
-      'flatten + messagepackize',
-      messagepackize(flatten(fixture)),
-    ];
-  },
-  () => {
-    return [
-      'thin',
-      JSON.stringify(thin(fixture)),
-    ];
-  },
-  () => {
-    return [
-      'thin + messagepackize',
-      messagepackize(thin(fixture)),
-    ];
-  },
-  () => {
-    return [
-      'arrayrefize',
-      JSON.stringify(arrayrefize(fixture)),
-    ];
-  },
-  () => {
-    return [
-      'arrayrefize + messagepackize',
-      messagepackize(arrayrefize(fixture)),
-    ];
-  },
+  [
+    'passthrough',
+    () => JSON.stringify(passthrough(fixture)),
+    payload => JSON.parse(payload),
+  ],
+  [
+    'messagepackize',
+    () => messagepackize(fixture),
+    payload => demessagepackize(payload),
+  ],
+  [
+    'leonize',
+    () => leonize(fixture),
+    payload => deleonize(payload),
+  ],
+  [
+    'flatten',
+    () => JSON.stringify(flatten(fixture)),
+    null,
+  ],
+  [
+    'flatten + messagepackize',
+    () => messagepackize(flatten(fixture)),
+    null,
+  ],
+  [
+    'thin',
+    () => JSON.stringify(thin(fixture)),
+    null,
+  ],
+  [
+    'thin + messagepackize',
+    () => messagepackize(thin(fixture)),
+    null,
+  ],
+  [
+    'arrayrefize',
+    () => JSON.stringify(arrayrefize(fixture)),
+    null,
+  ],
+  [
+    'arrayrefize + messagepackize',
+    () => messagepackize(arrayrefize(fixture)),
+    null,
+  ],
 ];
 
 function pretty(object) { // eslint-disable-line no-unused-vars
@@ -82,13 +75,12 @@ function pretty(object) { // eslint-disable-line no-unused-vars
 tests = tests.reduce((tests, test) => {
   tests.push(test);
   [1, 6, 9].forEach(level => {
-    tests.push(() => {
-      const [op, result] = test();
-      return [
-        `${op} + gzip(${level})`,
-        gzip.zip(result, {level}),
-      ];
-    });
+    const [op, encoder, decoder] = test;
+    tests.push([
+      `${op} + gzip(${level})`,
+      () => gzip.zip(encoder(), {level}),
+      null, // Not decoding due to buggy JS gunzip impementations.
+    ]);
   });
   return tests;
 }, []);
@@ -98,26 +90,45 @@ function print(str) {
 }
 
 const table = new Table({
-  head: ['op', 'size', '%', 'time'],
+  head: ['op', 'size', '%', 'time', 'reverse'],
 });
 
-tests.forEach(test => {
-  const [op, result] = test();
+tests.forEach(([op, encoder, decoder]) => {
   print(op + ': ');
-  const before = now();
+  const result = encoder();
+
+  // Encoding.
+  let before = now();
   for (let i = 0; i < 100; i++) {
-    test();
+    encoder();
     if (i % 10 === 0) {
       print('.');
     }
   }
-  const after = now();
+  const encodingTime = now() - before;
+
+  // Decoding.
+  let decodingTime = NaN;
+  if (decoder) {
+    before = now();
+    for (let i = 0; i < 100; i++) {
+      if (decoder) {
+        decoder(result);
+      }
+      if (i % 10 === 0) {
+        print('.');
+      }
+    }
+    decodingTime = now() - before;
+  }
+
   print('\n');
   table.push([
     op,
     result.length,
     (result.length / baseSize * 100).toFixed(2) + '%',
-    (after - before).toFixed(2) + 'ms',
+    encodingTime.toFixed(2) + 'ms',
+    isNaN(decodingTime) ? 'n/a' : decodingTime.toFixed(2) + 'ms',
   ]);
 });
 
