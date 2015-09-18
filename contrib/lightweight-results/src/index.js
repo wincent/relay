@@ -5,6 +5,7 @@
 import 'babel-core/polyfill';
 
 import Table from 'cli-table';
+import arrayrefize from './arrayrefize';
 import flatten from './flatten';
 import gzip from 'gzip-js';
 import leonize from './leonize';
@@ -69,6 +70,20 @@ let tests = [
     return [
       'thin + messagepackize',
       thinpacked,
+    ];
+  },
+  () => {
+    const refized = JSON.stringify(arrayrefize(fixture));
+    return [
+      'arrayrefize',
+      refized,
+    ];
+  },
+  () => {
+    const refizedAndPacked = messagepackize(arrayrefize(fixture));
+    return [
+      'arrayrefize + messagepackize',
+      refizedAndPacked,
     ];
   },
 ];
