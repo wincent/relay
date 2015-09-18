@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Minimal boilerplate for creating an NPM package",
   "main": "dist/index.js",
+  "bin": {
+    "bench": "dist/index.js"
+  },
   "scripts": {
     "build": "gulp build",
     "lint": "gulp lint",
@@ -39,6 +42,10 @@
     "sinon": "1.15.4"
   },
   "dependencies": {
-    "babel-core": "5.8.20"
+    "babel-core": "5.8.20",
+    "cli-table": "0.3.1",
+    "gzip-js": "0.3.2",
+    "msgpack-lite": "0.1.13",
+    "performance-now": "0.2.0"
   }
 }
