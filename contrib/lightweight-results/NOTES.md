@@ -33,6 +33,10 @@ JSON for delivery over the wire.
   this working.
 - Indicate the presence of subfields using bit arrays rather than textual field
   names.
+- Try to do better than standard gzip by using compression algorithms optimized
+  for compressing small data payloads, such as preshared dictionaries,
+  constructed based on static analysis of the schema and and the subset of it
+  actually used by an application.
 
 ## On the use of gzip
 
