@@ -422,7 +422,7 @@ function getFieldFromFatQuery(
   const field = fatQuery.getFieldByStorageKey(fieldName);
   invariant(
     field,
-    'RelayMutationQuery: Invalid field name on fat query, `%s`.',
+    'RelayMutationQuery: Invalid field name `%s` on fat query.',
     fieldName
   );
   return field;

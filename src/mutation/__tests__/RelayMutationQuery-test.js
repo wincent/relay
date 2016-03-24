@@ -72,7 +72,7 @@ describe('RelayMutationQuery', () => {
           },
         });
       }).toFailInvariant(
-        'RelayMutationQuery: Invalid field name on fat query, `unsubscribee`.'
+        'RelayMutationQuery: Invalid field name `unsubscribee` on fat query.'
       );
     });
 
@@ -237,7 +237,7 @@ describe('RelayMutationQuery', () => {
           parentName: 'story',
         });
       }).toFailInvariant(
-        'RelayMutationQuery: Invalid field name on fat query, `story`.'
+        'RelayMutationQuery: Invalid field name `story` on fat query.'
       );
     });
 
@@ -251,7 +251,7 @@ describe('RelayMutationQuery', () => {
           parentName: 'feedback',
         });
       }).toFailInvariant(
-        'RelayMutationQuery: Invalid field name on fat query, `doesViewerLike`.'
+        'RelayMutationQuery: Invalid field name `doesViewerLike` on fat query.'
       );
     });
 
@@ -627,7 +627,7 @@ describe('RelayMutationQuery', () => {
           rangeBehaviors,
         });
       }).toFailInvariant(
-        'RelayMutationQuery: Invalid field name on fat query, `story`.'
+        'RelayMutationQuery: Invalid field name `story` on fat query.'
       );
     });
 
@@ -643,7 +643,7 @@ describe('RelayMutationQuery', () => {
           rangeBehaviors,
         });
       }).toFailInvariant(
-        'RelayMutationQuery: Invalid field name on fat query, `doesViewerLike`.'
+        'RelayMutationQuery: Invalid field name `doesViewerLike` on fat query.'
       );
     });
 
